@@ -11,7 +11,7 @@ Este módulo es compatible con *Odoo Community 18.0*.
 
 ## 👷 Acceso facil a los docmuentos
 
-Se agrega un boton para acceder en los botones del modulo *hr*
+Se agrega un boton para acceder en los botones del modulo *hr* y *fleet*
 
 ### 🖼️ Vista previa de los botones:
 
