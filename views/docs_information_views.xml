@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_employee_document_list" model="ir.ui.view">
+        <field name="name">employee.document.list</field>
+        <field name="model">hr.employee.document</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" />
+                <field name="employee_id" />
+                <field name="document_type" />
+                <field name="issue_date" optional="show" />
+                <field name="expiration_date" />
+            </list>
+        </field>
+    </record>
+
+    <record id="view_employee_document_search" model="ir.ui.view">
+        <field name="name">hr.employee.document.search</field>
+        <field name="model">hr.employee.document</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="employee_id" />
+                <field name="document_type" />
+                <filter name="document_type" string="Tipo de documento" />
+                <filter name="has_file" string="Con Archivo" domain="[('file', '!=', False)]" />
+                <filter name="without_file" string="Sin Archivo" domain="[('file', '=', False)]" />
+            </search>
+        </field>
+    </record>
+
+    <record id="view_employee_document_kanban" model="ir.ui.view">
+        <field name="name">employee.document.kanban</field>
+        <field name="model">hr.employee.document</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global">
+                            <div class="oe_kanban_details">
+                                <strong>
+                                    <field name="name" />
+                                </strong>
+                                <div>
+                                    <field name="employee_id" />
+                                </div>
+                                <div>
+                                    <field name="document_type" />
+                                </div>
+                                <t t-if="issue_date and expiration_date">
+                                    <div>📅 <field name="issue_date" /> - <field
+                                            name="expiration_date" /></div>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_employee_document_form" model="ir.ui.view">
+        <field name="name">employee.document.form</field>
+        <field name="model">hr.employee.document</field>
+        <field name="arch" type="xml">
+            <form string="Documento del Empleado">
+                <sheet string="Documentos">
+                    <group>
+                        <group name="principal">
+                            <field name="name" />
+                            <field name="employee_id"
+                                context="{'default_employee_id': employee_id}" />
+                            <field name="document_type" />
+                        </group>
+                        <group name="files">
+                            <field name="file"
+                                filename="file_name"
+                                widget="binary"
+                                accept="application/pdf" />
+                            <field name="file_name" invisible="1" />
+                            <field name="issue_date" />
+                            <field name="expiration_date" />
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page name="notes" string="Notas">
+                            <field name="notes" />
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter invisible="not file" />
+            </form>
+        </field>
+    </record>
+
+    <record id="view_employee_document_form_pdf_viewer_inherit" model="ir.ui.view">
+        <field name="name">employee.document.form.pdf.viewer.inherit</field>
+        <field name="model">hr.employee.document</field>
+        <field name="inherit_id" ref="docs_information.view_employee_document_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//chatter" position="replace">
+                <div class="oe_chatter o_attachment_pdf"
+                    style="margin:10px; width:40%;"
+                    invisible="not file">
+                    <field name="file"
+                        widget="pdf_viewer"
+                        readonly="1"
+                        style="height:100%;" />
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_employee_document" model="ir.actions.act_window">
+        <field name="name">Documentos de Empleados</field>
+        <field name="res_model">hr.employee.document</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="help" type="html">
+            <div class="o_view_nocontent">
+                <div class="o_nocontent_help">
+                    <p class="o_view_nocontent_smiling_face">
+                        ¡Registra los documentos de los empleados aquí!
+                    </p>
+                </div>
+            </div>
+        </field>
+    </record>
+</odoo>
