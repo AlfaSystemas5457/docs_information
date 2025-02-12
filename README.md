@@ -5,7 +5,7 @@ Este módulo permite administrar los documentos de los empleados y vehiculos par
 ## 🚀 Compatible con versiones de Odoo  
 Este módulo es compatible con *Odoo Community 18.0*.
 
-🔗 [Repositorio en GitHub](https://github.com/AlfaSystemas5457/employee_docs_information)
+🔗 [Repositorio en GitHub](https://github.com/AlfaSystemas5457/docs_information)
 
 ---
 
@@ -32,7 +32,7 @@ Para instalar este módulo, sigue estos pasos:
 - Descargar el repositorio:
 
 ```bash
-git clone https://github.com/AlfaSystemas5457/employee_docs_information
+git clone https://github.com/AlfaSystemas5457/docs_information
 ```
 - Copiar la carpeta del módulo en la ruta de addons de Odoo.
 - Actualizar la lista de módulos en Odoo.
