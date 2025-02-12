@@ -4,7 +4,7 @@
     'summary': "Dar acceso simple y rapido a la información de los empleados y vehiculos",
     'description': """Dar acceso simple y rapido a la información de los empleados y vehiculos""",
     'author': "DGV",
-    'website': "https://github.com/AlfaSystemas5457/employee_docs_information",
+    'website': "https://github.com/AlfaSystemas5457/docs_information",
     'category': 'Uncategorized',
     'version': '0.1',
     
