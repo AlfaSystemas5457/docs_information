@@ -7,6 +7,7 @@
     'website': "https://github.com/AlfaSystemas5457/docs_information",
     'category': 'Uncategorized',
     'version': '0.1',
+    'license': 'LGPL-3',
     
     'depends': ['hr', 'mail', 'web', 'fleet'],
     

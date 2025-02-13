@@ -21,6 +21,7 @@ doc_types_list = [
 
 class EmployeeDoument(models.Model):
     _name = "fleet.vehicle.document"
+    _description = "Administración de documentos de los vehiculos"
     
     name = fields.Char(string="Nombre del docuimento", required=True)
     vehicle_id = fields.Many2one("fleet.vehicle", string="Vehiculo", required=True, ondelete="cascade")
