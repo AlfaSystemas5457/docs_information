@@ -23,8 +23,5 @@
             'docs_information/static/src/css/pdf_style.css',
         ]
     },
-    # 'demo': [
-    #     'demo/demo.xml',
-    # ],
 }
 

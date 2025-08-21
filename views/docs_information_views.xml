@@ -4,7 +4,7 @@
         <field name="name">employee.document.list</field>
         <field name="model">hr.employee.document</field>
         <field name="arch" type="xml">
-            <list>
+            <list string="Documentos de Empleados" duplicate="0">
                 <field name="name" />
                 <field name="employee_id" />
                 <field name="document_type" />
@@ -66,20 +66,16 @@
             <form string="Documento del Empleado">
                 <sheet string="Documentos">
                     <group>
-                        <group name="principal">
+                        <group>
                             <field name="name" />
                             <field name="employee_id"
                                 context="{'default_employee_id': employee_id}" />
                             <field name="document_type" />
                         </group>
-                        <group name="files">
-                            <field name="file"
-                                filename="file_name"
-                                widget="binary"
-                                accept="application/pdf" />
-                            <field name="file_name" invisible="1" />
+                        <group>
                             <field name="issue_date" />
                             <field name="expiration_date" />
+                            <field name="file" widget="many2many_binary" />
                         </group>
                     </group>
 
@@ -89,26 +85,8 @@
                         </page>
                     </notebook>
                 </sheet>
-                <chatter invisible="not file" />
+                <chatter />
             </form>
-        </field>
-    </record>
-
-    <record id="view_employee_document_form_pdf_viewer_inherit" model="ir.ui.view">
-        <field name="name">employee.document.form.pdf.viewer.inherit</field>
-        <field name="model">hr.employee.document</field>
-        <field name="inherit_id" ref="docs_information.view_employee_document_form" />
-        <field name="arch" type="xml">
-            <xpath expr="//chatter" position="replace">
-                <div class="oe_chatter o_attachment_pdf"
-                    style="margin:10px; width:40%;"
-                    invisible="not file">
-                    <field name="file"
-                        widget="pdf_viewer"
-                        readonly="1"
-                        style="height:100%;" />
-                </div>
-            </xpath>
         </field>
     </record>
 
