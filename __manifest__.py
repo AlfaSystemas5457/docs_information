@@ -8,9 +8,9 @@
     'category': 'Uncategorized',
     'version': '0.1',
     'license': 'LGPL-3',
-    
-    'depends': ['hr', 'mail', 'web', 'fleet'],
-    
+
+    'depends': ['hr', 'mail', 'fleet'],
+
     'data': [
         'security/ir.model.access.csv',
         'views/button_information_view.xml',
@@ -18,10 +18,4 @@
         'views/button_vehicle_information.xml',
         'views/docs_vehicle_information_view.xml',
     ],
-    'assets': {
-        'web.assets_backend': [
-            'docs_information/static/src/css/pdf_style.css',
-        ]
-    },
 }
-
