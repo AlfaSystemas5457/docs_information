@@ -13,10 +13,15 @@
 
     'data': [
         'security/ir.model.access.csv',
-        'views/menu.xml',
         'views/button_information_view.xml',
         'views/docs_information_views.xml',
         'views/button_vehicle_information.xml',
         'views/docs_vehicle_information_view.xml',
+        'views/menu.xml',
     ],
+    'assets': {
+        'web.assets_backend': [
+            'docs_information/static/src/views/**/*',
+        ],
+    },
 }
