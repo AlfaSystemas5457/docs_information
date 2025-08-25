@@ -22,9 +22,16 @@
                 <field name="name" />
                 <field name="employee_id" />
                 <field name="document_type" />
-                <filter name="document_type" string="Tipo de documento" />
+
                 <filter name="has_file" string="Con Archivo" domain="[('file', '!=', False)]" />
                 <filter name="without_file" string="Sin Archivo" domain="[('file', '=', False)]" />
+
+                <group expand="1" string="Agrupar por">
+                    <filter name="group_by_document_type" string="Tipo de documento"
+                        context="{'group_by': 'document_type'}" />
+                    <filter name="group_by_employee_id" string="Empleado"
+                        context="{'group_by': 'employee_id'}" />
+                </group>
             </search>
         </field>
     </record>
@@ -34,25 +41,39 @@
         <field name="model">hr.employee.document</field>
         <field name="arch" type="xml">
             <kanban>
+                <field name="name" />
+                <field name="employee_id" />
+                <field name="document_type" />
+                <field name="issue_date" />
+                <field name="expiration_date" />
+                <field name="file_extension" />
                 <templates>
-                    <t t-name="kanban-box">
-                        <div class="oe_kanban_global">
-                            <div class="oe_kanban_details">
-                                <strong>
-                                    <field name="name" />
-                                </strong>
-                                <div>
-                                    <field name="employee_id" />
+                    <t t-name="card" class="flex-row">
+                        <main>
+                            <div t-attf-class="oe_kanban_global_click oe_kanban_content row g-0">
+                                <div class="col-3">
+                                    <img
+                                        t-att-src="'/docs_information/static/icons/file_' + (record.file_extension.raw_value || 'unknown') + '.svg'"
+                                        alt="Archivo adjunto" style="width: 100%;" />
                                 </div>
-                                <div>
-                                    <field name="document_type" />
+                                <div class="col-9">
+                                    <strong>
+                                        <field name="name" />
+                                    </strong>
+                                    <div>
+                                        <field name="document_type" />
+                                    </div>
+                                    <div invisible="not issue_date and not expiration_date"> 📅 <field
+                                            name="issue_date" /> <span
+                                            invisible="not issue_date or not expiration_date">-</span> <field
+                                            name="expiration_date" />
+                                    </div>
                                 </div>
-                                <t t-if="issue_date and expiration_date">
-                                    <div>📅 <field name="issue_date" /> - <field
-                                            name="expiration_date" /></div>
-                                </t>
+                                <footer>
+                                    <field name="employee_id" widget="many2one_avatar_employee" />
+                                </footer>
                             </div>
-                        </div>
+                        </main>
                     </t>
                 </templates>
             </kanban>
@@ -65,21 +86,39 @@
         <field name="arch" type="xml">
             <form string="Documento del Empleado">
                 <sheet string="Documentos">
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Nombre del documento" />
+                        </h1>
+                    </div>
                     <group>
                         <group>
-                            <field name="name" />
-                            <field name="employee_id"
-                                context="{'default_employee_id': employee_id}" />
+                            <field name="employee_id" context="{'default_employee_id': employee_id}"
+                                widget="many2one_avatar_employee" />
                             <field name="document_type" />
                         </group>
                         <group>
                             <field name="issue_date" />
                             <field name="expiration_date" />
-                            <field name="file" widget="many2many_binary" />
                         </group>
                     </group>
 
                     <notebook>
+                        <page string="Archivo">
+                            <group invisible="not file">
+                                <field name="file_extension" />
+                            </group>
+                            <group>
+                                <field name="file" filename="filename" />
+                                <div class="o_pdf_viewer_container">
+                                    <field name="file"
+                                        filename="filename"
+                                        widget="pdf_viewer"
+                                        class="o_pdf_viewer_container"
+                                        readonly="1" />
+                                </div>
+                            </group>
+                        </page>
                         <page name="notes" string="Notas">
                             <field name="notes" />
                         </page>
@@ -104,4 +143,11 @@
             </div>
         </field>
     </record>
+
+    <menuitem
+        id="employee_documents_sub_menu"
+        name="Documentos de Empleados"
+        action="docs_information.action_employee_document"
+        parent="docs_information.docs_information_menu"
+        sequence="10" />
 </odoo>

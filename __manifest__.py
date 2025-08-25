@@ -13,6 +13,7 @@
 
     'data': [
         'security/ir.model.access.csv',
+        'views/menu.xml',
         'views/button_information_view.xml',
         'views/docs_information_views.xml',
         'views/button_vehicle_information.xml',

@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <menuitem
+        id="docs_information_menu"
+        name="Documentos"
+        action="docs_information.action_employee_document"
+        web_icon="docs_information,static/description/icon.png"
+        sequence="10" />
+</odoo>

@@ -29,12 +29,23 @@ class EmployeeDoument(models.Model):
 
     document_type = fields.Many2one(
         'hr.employee.document.type', string="Tipo de documento", required=True, tracking=True)
-    file = fields.Many2many(comodel_name="ir.attachment", relation="m2m_ir_employee_attachment_relation",
-                            column1="m2m_id", column2="attachment_id", string="Adjuntar archivos", tracking=True)
 
     issue_date = fields.Date("Fecha de emision", tracking=True)
     expiration_date = fields.Date("Fecha de expiración", tracking=True)
-    notes = fields.Text("Notas", tracking=True)
+    notes = fields.Html("Notas")
+
+    file = fields.Binary(string="Archivo adjunto")
+    filename = fields.Char(string="Nombre del archivo")
+    file_extension = fields.Char(
+        string="Extensión del archivo", compute="_compute_file_extension")
+
+    @api.onchange('file', 'filename')
+    def _compute_file_extension(self):
+        for record in self:
+            if record.filename and '.' in record.filename:
+                record.file_extension = record.filename.split('.')[-1].lower()
+            else:
+                record.file_extension = ''
 
     def copy(self, default=None):
         if default is None:
