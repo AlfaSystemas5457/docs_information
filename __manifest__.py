@@ -24,4 +24,6 @@
             'docs_information/static/src/views/**/*',
         ],
     },
+    'auto_install': False,
+    'application': True,
 }
