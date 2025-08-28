@@ -105,17 +105,14 @@
 
                     <notebook>
                         <page string="Archivo">
-                            <group invisible="not file">
+                            <group invisible="1">
                                 <field name="file_extension" />
                             </group>
                             <group>
-                                <field name="file" filename="filename" />
-                                <div class="o_pdf_viewer_container">
+                                <div>
                                     <field name="file"
                                         filename="filename"
-                                        widget="pdf_viewer"
-                                        class="o_pdf_viewer_container"
-                                        readonly="1" />
+                                        widget="file_viewer" />
                                 </div>
                             </group>
                         </page>

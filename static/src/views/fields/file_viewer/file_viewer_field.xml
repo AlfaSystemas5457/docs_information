@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="docs_information.FileViewerField" owl="1">
+        <!-- Controles de subida (solo si no es readonly) -->
+        <t t-if="!props.readonly">
+            <div class="o_form_file_controls">
+                <t t-if="props.record.data[props.name]">
+                    <FileUploader
+                        acceptedFileExtensions="'.pdf, .png, .jpg, .jpeg'"
+                        onUploaded.bind="onFileUploaded">
+                        <t t-set-slot="toggler">
+                            <button
+                                class="btn btn-secondary fa fa-pencil o_select_file_button"
+                                data-tooltip="Edit"
+                                aria-label="Edit"/>
+                        </t>
+                        <button
+                            class="btn btn-secondary fa fa-trash o_clear_file_button"
+                            data-tooltip="Clear"
+                            aria-label="Clear"
+                            t-on-click="onFileRemove"
+                        />
+                    </FileUploader>
+                </t>
+                <t t-else="">
+                    <label class="o_select_file_button btn btn-primary">
+                    <FileUploader
+                        acceptedFileExtensions="'.pdf, .png, .jpg, .jpeg'"
+                        onUploaded.bind="onFileUploaded">
+                        <t t-set-slot="toggler">
+                            <span>Upload your file</span>
+                        </t>
+                    </FileUploader>
+                    </label>
+                </t>
+            </div>
+        </t>
+
+        <!-- Display del archivo -->
+        <t t-if="props.record.data[props.name]">
+            <t t-set="file_extension" t-value="props.record.data['file_extension'] "/>
+            <!-- PDF -->
+            <t t-if="file_extension === 'pdf'">
+                <iframe
+                    class="o_pdfview_iframe"
+                    alt="PDF file"
+                    t-att-src="url"
+                    t-att-name="props.name"
+                    t-on-error="onLoadFailed"/>
+            </t>
+            <!-- Imagen -->
+            <t t-elif="file_extension and ['png','jpg','jpeg'].includes(file_extension)">
+                <img
+                    class="o_imageview"
+                    alt="Image file"
+                    t-att-src="url" />
+            </t>
+            <!-- Unsupported -->
+            <t t-else="">
+                <div class="o_unknownfile">Archivo no soportado 😢</div>
+            </t>
+        </t>
+    </t>
+</templates>

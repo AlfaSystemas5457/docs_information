@@ -34,7 +34,7 @@ class EmployeeDoument(models.Model):
     expiration_date = fields.Date("Fecha de expiración", tracking=True)
     notes = fields.Html("Notas")
 
-    file = fields.Binary(string="Archivo adjunto")
+    file = fields.Binary(string="Archivo adjunto", attachment=True)
     filename = fields.Char(string="Nombre del archivo")
     file_extension = fields.Char(
         string="Extensión del archivo", compute="_compute_file_extension")
@@ -43,7 +43,9 @@ class EmployeeDoument(models.Model):
     def _compute_file_extension(self):
         for record in self:
             if record.filename and '.' in record.filename:
-                record.file_extension = record.filename.split('.')[-1].lower()
+                record.write({
+                    'file_extension': record.filename.split('.')[-1].lower()
+                })
             else:
                 record.file_extension = ''
 
