@@ -53,7 +53,7 @@
                             <div t-attf-class="oe_kanban_global_click oe_kanban_content row g-0">
                                 <div class="col-3">
                                     <img
-                                        t-att-src="'/docs_information/static/icons/file_unknown.svg'"
+                                        t-att-src="'/docs_information/static/icons/file_' + (record.file_extension.raw_value || 'unknown') + '.svg'"
                                         alt="Archivo adjunto" style="width: 100%;" />
                                 </div>
                                 <div class="col-9">
@@ -104,17 +104,14 @@
 
                     <notebook>
                         <page string="Archivo">
-                            <group invisible="not file">
+                            <group invisible="1">
                                 <field name="file_extension" />
                             </group>
                             <group>
-                                <field name="file" filename="filename" />
-                                <div class="o_pdf_viewer_container">
+                                <div>
                                     <field name="file"
                                         filename="filename"
-                                        widget="pdf_viewer"
-                                        class="o_pdf_viewer_container"
-                                        readonly="1" />
+                                        widget="file_viewer" />
                                 </div>
                             </group>
                         </page>
