@@ -19,5 +19,6 @@
         name="Documentos de Vehiculos"
         action="docs_information.action_vehicle_document"
         parent="docs_information.docs_information_menu"
+        groups="group_documents_access_all"
         sequence="20" />
 </odoo>

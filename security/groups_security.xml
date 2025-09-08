@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_documents_access_assigned" model="res.groups">
+        <field name="name">Acceso a los documentos propios</field>
+        <field name="category_id" ref="base.module_category_hidden" />
+        <field name="comment">Usuarios que solo pueden ver los dumentos propios pero no los pueden
+            editar.</field>
+    </record>
+
+    <record id="group_documents_access_all" model="res.groups">
+        <field name="name">Acceso a todos los documentos</field>
+        <field name="category_id" ref="base.module_category_hidden" />
+        <field name="comment">Usuarios que pueden ver y codificar todos los documentos sin
+            restricción.</field>
+    </record>
+</odoo>

@@ -129,6 +129,8 @@
         <field name="name">Documentos de Vehiculos</field>
         <field name="res_model">fleet.vehicle.document</field>
         <field name="view_mode">kanban,list,form</field>
+        <field name="groups_id"
+            eval="[(4, ref('docs_information.group_documents_access_all'))]" />
         <field name="help" type="html">
             <div class="o_view_nocontent">
                 <div class="o_nocontent_help">

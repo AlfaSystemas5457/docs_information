@@ -13,6 +13,9 @@
 
     'data': [
         'security/ir.model.access.csv',
+        'security/groups_security.xml',
+        'security/rule_security.xml',
+        'views/res_users_views.xml',
         'views/button_information_view.xml',
         'views/docs_information_views.xml',
         'views/button_vehicle_information.xml',
@@ -24,6 +27,7 @@
             'docs_information/static/src/views/**/*',
         ],
     },
+    'post_init_hook': 'post_init_hook',
     'auto_install': False,
     'application': True,
 }

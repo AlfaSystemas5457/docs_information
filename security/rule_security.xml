@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!-- 🔒 Regla para usuarios con acceso limitado -->
+    <record id="rule_documents_assigned_only" model="ir.rule">
+        <field name="name">Ver solo documentos de empleados propios</field>
+        <field name="model_id" ref="model_hr_employee_document" />
+        <field name="domain_force">[('employee_id.user_id.id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('docs_information.group_documents_access_assigned'))]" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_unlink" eval="False" />
+    </record>
+
+    <!-- 🔓 Regla para usuarios con acceso total -->
+    <record id="rule_documents_access_all" model="ir.rule">
+        <field name="name">Ver todos los documentos de empleados</field>
+        <field name="model_id" ref="model_hr_employee_document" />
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('docs_information.group_documents_access_all'))]" />
+        <field name="perm_create" eval="True" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="True" />
+        <field name="perm_unlink" eval="True" />
+    </record>
+
+    <record id="rule_documents_vehicle_access_all" model="ir.rule">
+        <field name="name">Ver todos los documentos de vehiculos</field>
+        <field name="model_id" ref="model_fleet_vehicle_document" />
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('docs_information.group_documents_access_all'))]" />
+        <field name="perm_create" eval="True" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="True" />
+        <field name="perm_unlink" eval="True" />
+    </record>
+</odoo>
